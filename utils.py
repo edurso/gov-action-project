@@ -11,9 +11,10 @@ import numpy as np
 from os.path import exists
 
 DATA_FILE = './data/election-data-congressional-district.csv'
+POP_DATA_FILE = './data/popular-vote-data.csv'
 REPUBLICAN = 'R'
 DEMOCRAT = 'D'
-YEARS = [2020, 2016, 2012]
+YEARS = [2020, 2016, 2012, 0000] # 0000 for test data (small)
 CDM = 1
 WTA = 0
 
@@ -45,7 +46,7 @@ def get_winner(rep: int, dem: int) -> str:
 	elif(dem >= 270 and rep < 270):
 		return DEMOCRAT
 	else:
-		print('No one met 270, going to popular vote')
+		print('No one met 270, going to whoever won more')
 		return DEMOCRAT if dem > rep else REPUBLICAN
 	
 	

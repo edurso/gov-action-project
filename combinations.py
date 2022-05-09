@@ -64,7 +64,7 @@ labels = ['Republican', 'Democrat']
 colors = ['red', 'blue']
 nums = [percent_rep, percent_dem]
 
-plt.pie(nums, labels=labels, colors=colors, startangle=237, autopct='%1.1f%%')
+plt.pie(nums, labels=labels, colors=colors, autopct='%1.1f%%')
 plt.legend(loc='upper left')
 plt.savefig('./figs/data-{}.png'.format(year))
 plt.show()
