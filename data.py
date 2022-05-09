@@ -6,16 +6,23 @@ Writes to data-{YEAR}.csv
 Author: @edurso
 '''
 
+import sys
 import pandas as pd
 import numpy as np
 
 import utils
 
-year = utils.get_year()
+if len(sys.argv) > 1:
+	year = int(sys.argv[1])
+	if year not in utils.YEARS:
+		print('Given year ({}) is invalid.\nYear must be 2020, 2016, 2012, or 0'.format(year))
+		exit(1)
+else:
+	year = utils.get_year()
 
 if year == 0:
 	print('This file cannot process year 0000')
-	exit()
+	exit(1)
 
 data_frame = pd.read_csv(utils.DATA_FILE)
 

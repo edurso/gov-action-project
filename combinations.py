@@ -7,12 +7,20 @@ CDM districts and who would have won the election in that year.
 Author: @edurso
 '''
 
+import sys
 import math
 import matplotlib.pyplot as plt
 
 import utils
 
-year = utils.get_year()
+if len(sys.argv) > 1:
+	year = int(sys.argv[1])
+	if year not in utils.YEARS:
+		print('Given year ({}) is invalid.\nYear must be 2020, 2016, 2012, or 0'.format(year))
+		exit(1)
+else:
+	year = utils.get_year()
+
 
 print('Using data for year {}'.format(year))
 
