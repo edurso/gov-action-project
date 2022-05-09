@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 import utils
 
 year = utils.get_year()
+
+print('Using data for year {}'.format(year))
+
 df = utils.get_data(year)
 
 rep_wins = 0
