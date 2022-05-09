@@ -53,7 +53,7 @@ for x in range(int(math.pow(2,len(df['State'])))):
 	else:
 		print('Oh no, no one won')
 
-	print(bin_str, scenario_winner)
+	# print(bin_str, scenario_winner)
 
 percent_rep = (float(rep_wins) / (float(rep_wins) + float(dem_wins))) * 100
 percent_dem = 100 - percent_rep
