@@ -13,6 +13,43 @@ import matplotlib.pyplot as plt
 
 import utils
 
+def complete_sim():
+	for x in range(int(math.pow(2,len(df['State'])))):
+		bin_str = str(bin(x)[2:].zfill(len(df['State']))) # binary sequence of string
+
+		dem_electoral_votes = 0
+		rep_electoral_votes = 0
+
+		for n, state in zip(bin_str, df['State']):
+
+			cdmd = df.loc[df['State'] == state, 'CDM-D'].values[0] 
+			cdmr = df.loc[df['State'] == state, 'CDM-R'].values[0] 
+			winner = df.loc[df['State'] == state, 'WTA'].values[0]
+
+			if int(n) == utils.CDM:
+				dem_electoral_votes += cdmd 
+				rep_electoral_votes += cdmr
+			elif int(n) == utils.WTA:
+				if winner == utils.REPUBLICAN:
+					rep_electoral_votes += (cdmr + cdmd)
+				elif winner == utils.DEMOCRAT:
+					dem_electoral_votes += (cdmr + cdmd)
+				else:
+					print('Neither party carried state?')
+			else:
+				print('Unknown elector allocation method. Needs to be CDM or WTA')
+
+		scenario_winner = utils.get_winner(rep_electoral_votes, dem_electoral_votes)
+
+		if scenario_winner == utils.REPUBLICAN:
+			rep_wins += 1
+		elif scenario_winner == utils.DEMOCRAT:
+			dem_wins += 1
+		else:
+			print('Oh no, no one won')
+
+		# print(bin_str, scenario_winner)
+
 if len(sys.argv) > 1:
 	year = int(sys.argv[1])
 	if year not in utils.YEARS:
@@ -29,42 +66,7 @@ df = utils.get_data(year)
 rep_wins = 0
 dem_wins = 0
 
-for x in range(int(math.pow(2,len(df['State'])))):
-
-	bin_str = str(bin(x)[2:].zfill(len(df['State']))) # binary sequence of string
-
-	dem_electoral_votes = 0
-	rep_electoral_votes = 0
-
-	for n, state in zip(bin_str, df['State']):
-
-		cdmd = df.loc[df['State'] == state, 'CDM-D'].values[0] 
-		cdmr = df.loc[df['State'] == state, 'CDM-R'].values[0] 
-		winner = df.loc[df['State'] == state, 'WTA'].values[0]
-
-		if int(n) == utils.CDM:
-			dem_electoral_votes += cdmd 
-			rep_electoral_votes += cdmr
-		elif int(n) == utils.WTA:
-			if winner == utils.REPUBLICAN:
-				rep_electoral_votes += (cdmr + cdmd)
-			elif winner == utils.DEMOCRAT:
-				dem_electoral_votes += (cdmr + cdmd)
-			else:
-				print('Neither party carried state?')
-		else:
-			print('Unknown elector allocation method. Needs to be CDM or WTA')
-
-	scenario_winner = utils.get_winner(rep_electoral_votes, dem_electoral_votes)
-
-	if scenario_winner == utils.REPUBLICAN:
-		rep_wins += 1
-	elif scenario_winner == utils.DEMOCRAT:
-		dem_wins += 1
-	else:
-		print('Oh no, no one won')
-
-	# print(bin_str, scenario_winner)
+complete_sim()
 
 percent_rep = (float(rep_wins) / (float(rep_wins) + float(dem_wins))) * 100
 percent_dem = 100 - percent_rep
