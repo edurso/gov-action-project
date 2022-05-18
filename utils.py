@@ -46,7 +46,7 @@ def get_winner(rep: int, dem: int) -> str:
 	elif(dem >= 270 and rep < 270):
 		return DEMOCRAT
 	else:
-		print('No one met 270, going to whoever won more')
-		return DEMOCRAT if dem > rep else REPUBLICAN
+		print('No one met 270')
+		return 'N' #DEMOCRAT if dem > rep else REPUBLICAN
 	
 	
