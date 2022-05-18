@@ -21,7 +21,7 @@ if len(sys.argv) > 1:
 else:
 	year = utils.get_year()
 
-fname = './out/results-{}.csv'.format(year)
+fname = './out/results-{}.txt'.format(year)
 
 print('Using data for year {}'.format(year))
 
