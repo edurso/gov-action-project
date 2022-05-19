@@ -108,7 +108,7 @@ for x in range(int(math.pow(2,len(df['State'])))):
 		rep_wins += 1
 		cdm_states = [state for n, state in zip(bin_str, df['State']) if int(n) == utils.CDM]
 		rep_win_scenarios.append(cdm_states)
-		# print('Republican Party Won with the following states CDM: {}'.format(cdm_states))
+		print('Republican Party Won with the following states CDM: {}'.format(cdm_states))
 	elif scenario_winner == utils.DEMOCRAT:
 		dem_wins += 1
 	else:
