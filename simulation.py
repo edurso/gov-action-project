@@ -128,7 +128,7 @@ print('the republican party won with the following combinations of states as CDM
 
 with open(fname, 'w') as f:
 	for combination in rep_win_scenarios:
-		f.write(', '.join(combination))
+		f.write(', '.join(combination)+'\n')
 
 labels = ['Republican', 'Democrat', 'No Winner']
 colors = ['red', 'blue', 'white']
