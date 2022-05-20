@@ -16,10 +16,10 @@ Determine how different combinations of winner-take-all states and states that u
 - [X] [E] Integrate Popular Vote Info to Datafile
 - [X] [E] Save some kind of readable output (pi chart)
 - [X] [E] Some kind of pattern analysis
-- [ ] [E] Run Simulation
+- [X] [E] Run Simulation
   - [X] [E] 2020
-  - [ ] [E] 2016
-  - [ ] [E] 2012
-- [ ] [E] Simulation Trend Analysis
+  - [X] [E] 2016
+  - [X] [E] 2012
+- [X] [E] Simulation Trend Analysis
 - [ ] [C] Brief write-up describing winner-take-all v. congressional district method
 - [ ] [E&C] Brief write-up describing results of simulation

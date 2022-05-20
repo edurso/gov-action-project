@@ -20,6 +20,9 @@ if len(sys.argv) > 1:
 else:
 	year = utils.get_year()
 
+dem_won = not year == 2016
+# print(dem_won)
+
 fname = '../out/results-{}.txt'.format(year)
 
 print('Using data for year {}'.format(year))
@@ -30,25 +33,26 @@ rep_wins = 0
 dem_wins = 0
 no_win = 0
 
-rep_win_scenarios = []
+delta_win_scenarios = []
 
 # find democratic states w/republican districts
-dem_states = []
+del_states = []
 for state in df['State']:
 	cdmd = df.loc[df['State'] == state, 'CDM-D'].values[0] 
 	cdmr = df.loc[df['State'] == state, 'CDM-R'].values[0] 
 	winner = df.loc[df['State'] == state, 'WTA'].values[0]
 	# print('W {} D {} R {}'.format(winner, cdmd, cdmr))
-	if winner == utils.DEMOCRAT and cdmr > 0:
-		# print('THIS ONE')
-		dem_states.append(state)
-# print(len(dem_states))
+	if dem_won and winner == utils.DEMOCRAT and cdmr > 0:
+		del_states.append(state)
+	elif not dem_won and winner == utils.REPUBLICAN and cdmd > 0:
+		del_states.append(state)
+# print(len(del_states))
 
 # calculate votes for states not in list
 electoral_votes_dem = 0
 electoral_votes_rep = 0
 for state in df['State']:
-	if state not in dem_states:
+	if state not in del_states:
 		cdmd = df.loc[df['State'] == state, 'CDM-D'].values[0] 
 		cdmr = df.loc[df['State'] == state, 'CDM-R'].values[0] 
 		winner = df.loc[df['State'] == state, 'WTA'].values[0]
@@ -63,12 +67,12 @@ for state in df['State']:
 # build experimental directory of states
 states_dir = {}
 wta, cdmd, cdmr = [], [], []
-for state in dem_states:
+for state in del_states:
 	cdmd.append(df.loc[df['State'] == state, 'CDM-D'].values[0])
 	cdmr.append(df.loc[df['State'] == state, 'CDM-R'].values[0])
 	wta.append(df.loc[df['State'] == state, 'WTA'].values[0])
 
-states_dir['State'] = dem_states
+states_dir['State'] = del_states
 states_dir['WTA'] = wta
 states_dir['CDM-D'] = cdmd
 states_dir['CDM-R'] = cdmr
@@ -105,11 +109,16 @@ for x in range(int(math.pow(2,len(df['State'])))):
 
 	if scenario_winner == utils.REPUBLICAN:
 		rep_wins += 1
-		cdm_states = [state for n, state in zip(bin_str, df['State']) if int(n) == utils.CDM]
-		rep_win_scenarios.append(cdm_states)
-		print('Republican Party Won with the following states CDM: {}'.format(cdm_states))
+		if dem_won:
+			cdm_states = [state for n, state in zip(bin_str, df['State']) if int(n) == utils.CDM]
+			delta_win_scenarios.append(cdm_states)
+			print('Republican Party Won with the following states CDM: {}'.format(cdm_states))
 	elif scenario_winner == utils.DEMOCRAT:
 		dem_wins += 1
+		if not dem_won:
+			cdm_states = [state for n, state in zip(bin_str, df['State']) if int(n) == utils.CDM]
+			delta_win_scenarios.append(cdm_states)
+			print('Democratic Party Won with the following states CDM: {}'.format(cdm_states))
 	else:
 		no_win += 1
 
@@ -122,10 +131,8 @@ percent_no = (float(no_win) / (float(rep_wins) + float(dem_wins) + float(no_win)
 
 print('rep: {}, dem: {}, no: {}'.format(percent_rep, percent_dem, percent_no))
 
-print('the republican party won with the following combinations of states as CDM:')
-
 with open(fname, 'w') as f:
-	for combination in rep_win_scenarios:
+	for combination in delta_win_scenarios:
 		f.write(', '.join(combination)+'\n')
 
 labels = ['Republican', 'Democrat', 'No Winner']

@@ -40,8 +40,8 @@ with open(fname, 'r') as f:
 for state in states:
 	states[state] = float(states[state])/float(count) * 100.0
 
-print(states)
-print(count)
+# print(states)
+# print(count)
 
 # creating the bar plot
 for state in states.copy():
@@ -55,6 +55,6 @@ with open('../out/trend-{}.txt'.format(year), 'w') as f:
  
 plt.xlabel('State')
 plt.ylabel('% Of Scenarios')
-plt.title('% Of Scenarios where State is CDM & Republicans Win')
+plt.title('% Of Scenarios where State is CDM & Opposite Party Wins')
 plt.savefig('../figs/trend-{}.png'.format(year))
 plt.show()
