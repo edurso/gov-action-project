@@ -2,6 +2,10 @@
 
 '''
 Simulation
+Reads data-{YEAR}.csv and simulates converting select states to CDM.
+States are selected if they:
+1. Were won by the winner of the election
+2. Have 1 or more congressional district that favors the party that lost
 Author: @edurso
 '''
 

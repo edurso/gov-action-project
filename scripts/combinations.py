@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 '''
-Data Processing
+Data Processing 
+DEPRECATED
 Reads data-{YEAR}.csv file and determines combinations of WTA and 
 CDM districts and who would have won the election in that year.
 Author: @edurso

@@ -2,6 +2,8 @@
 
 '''
 Format Output Text File
+There was, at one point, a bug where no newlines were inserted into the file.
+This tool searches for where these newlines should be and inserts them.
 Author: @edurso
 '''
 

@@ -2,6 +2,7 @@
 
 '''
 Trend Analysis
+Determines frequency of states that appear across simulated elections when result was altered.
 Author: @edurso
 '''
 
