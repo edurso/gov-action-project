@@ -21,5 +21,6 @@ Determine how different combinations of winner-take-all states and states that u
   - [X] [E] 2016
   - [X] [E] 2012
 - [X] [E] Simulation Trend Analysis
-- [ ] [C] Brief write-up describing winner-take-all v. congressional district method
-- [ ] [E&C] Brief write-up describing results of simulation
+- [X] [C] Brief write-up describing winner-take-all v. congressional district method
+- [X] [E&C] Brief write-up describing results of simulation
+
